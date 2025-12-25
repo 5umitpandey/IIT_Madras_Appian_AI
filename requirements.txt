@@ -1,1 +1,2 @@
-req
+paper-qa
+python-dotenv
