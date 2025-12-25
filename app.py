@@ -3,15 +3,23 @@ import os
 from paperqa import Docs
 
 # -------------------------------------------------
-# Configure paper-qa via environment variables
+# FORCE LOCAL-ONLY EXECUTION (CRITICAL)
 # -------------------------------------------------
 os.environ["LLM"] = "ollama/mistral"
 os.environ["EMBEDDING"] = "ollama/nomic-embed-text"
-os.environ["TEMPERATURE"] = "0.1"
-os.environ["MAX_TOKENS"] = "512"
+
+# Disable OpenAI & external services completely
+os.environ["OPENAI_API_KEY"] = ""
+os.environ["CROSSREF_API_KEY"] = ""
+os.environ["SEMANTIC_SCHOLAR_API_KEY"] = ""
+
+# Disable enrichment features that trigger OpenAI
+os.environ["PAPERQA_DISABLE_ENRICHMENT"] = "1"
+os.environ["PAPERQA_DISABLE_METADATA"] = "1"
+os.environ["PAPERQA_DISABLE_MEDIA_ENRICHMENT"] = "1"
 
 # -------------------------------------------------
-# Initialize Docs (NO arguments allowed)
+# Initialize Docs (NO arguments)
 # -------------------------------------------------
 docs = Docs()
 _documents_loaded = False
@@ -44,22 +52,3 @@ async def query_knowledge(case_context: dict):
 
     answer = await docs.aquery(query)
     return answer.answer, answer.contexts
-
-
-# -------------------------------------------------
-# Optional backend test
-# -------------------------------------------------
-if __name__ == "__main__":
-    async def test():
-        ctx = {
-            "claim_type": "Flood",
-            "location": "Florida",
-            "case_category": "Insurance Claim",
-        }
-        ans, srcs = await query_knowledge(ctx)
-        print(ans)
-        print("\nSources:")
-        for s in srcs:
-            print("-", s)
-
-    asyncio.run(test())
