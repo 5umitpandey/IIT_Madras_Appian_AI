@@ -1,5 +1,7 @@
 # System Architecture
 
+![System Architecture](https://github.com/5umitpandey/IIT_Madras_Appian_AI/blob/main/architecture/Architecture.png )
+
 ## Overview
 This document explains the high-level architecture of the **Just-in-Time Knowledge Retrieval System** and how each component contributes to context-aware, citation-backed decision support.
 
