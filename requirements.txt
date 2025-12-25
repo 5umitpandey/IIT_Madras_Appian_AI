@@ -1,2 +1,3 @@
 paper-qa
 python-dotenv
+streamlit
