@@ -1,15 +1,19 @@
 import asyncio
+import os
 from paperqa import Docs
-from paperqa.settings import Settings
 
-settings = Settings(
-    llm="ollama/mistral",
-    embedding="ollama/nomic-embed-text",
-    temperature=0.1,
-    max_tokens=512,
-)
+# -------------------------------------------------
+# Configure paper-qa via environment variables
+# -------------------------------------------------
+os.environ["LLM"] = "ollama/mistral"
+os.environ["EMBEDDING"] = "ollama/nomic-embed-text"
+os.environ["TEMPERATURE"] = "0.1"
+os.environ["MAX_TOKENS"] = "512"
 
-docs = Docs(settings=settings)
+# -------------------------------------------------
+# Initialize Docs (NO arguments allowed)
+# -------------------------------------------------
+docs = Docs()
 _documents_loaded = False
 
 
@@ -17,8 +21,8 @@ async def load_documents():
     global _documents_loaded
     if not _documents_loaded:
         await docs.aadd(
-            "data/sample_policies/Bajaj_Health_Insurance_Policy.pdf",
-            citation="Bajaj Health Insurance Policy"
+            "data/Bajaj_Health_Insurance_Policy.pdf",
+            citation="Bajaj Health Insurance Policy",
         )
         _documents_loaded = True
 
@@ -39,5 +43,23 @@ async def query_knowledge(case_context: dict):
     """
 
     answer = await docs.aquery(query)
-
     return answer.answer, answer.contexts
+
+
+# -------------------------------------------------
+# Optional backend test
+# -------------------------------------------------
+if __name__ == "__main__":
+    async def test():
+        ctx = {
+            "claim_type": "Flood",
+            "location": "Florida",
+            "case_category": "Insurance Claim",
+        }
+        ans, srcs = await query_knowledge(ctx)
+        print(ans)
+        print("\nSources:")
+        for s in srcs:
+            print("-", s)
+
+    asyncio.run(test())
