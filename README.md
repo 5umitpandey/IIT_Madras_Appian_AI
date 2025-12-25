@@ -1,5 +1,7 @@
 # Intelligent Just-in-Time Knowledge Retrieval for Case Management
 
+![Map](https://github.com/5umitpandey/IIT_Madras_Appian_AI/blob/main/main.jpg)
+
 ## Overview
 This project demonstrates a **context-aware knowledge retrieval system** designed for enterprise case management workflows such as those used in Appian.
 
