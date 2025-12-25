@@ -115,7 +115,7 @@ ollama pull nomic-embed-text
 ### Run
 
 ```bash
-python app.py
+streamlit run ui.py
 
 ```
 
