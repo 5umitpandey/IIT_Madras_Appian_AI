@@ -47,6 +47,8 @@ The system is designed to be **enterprise-friendly**, privacy-preserving, and au
 - Claim Type: Flood  
 - Location: Florida  
 
+![Screenshot1](https://github.com/5umitpandey/IIT_Madras_Appian_AI/blob/main/screenshots/Screenshot1.png)
+
 **System Output**
 - Flood coverage clause from policy document
 - State-specific regulatory guideline
